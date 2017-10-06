@@ -1,7 +1,7 @@
 <html>
     <head></head>
     <body>
-
+        <div class='problem'></div>
     </body>
     <script>
 
@@ -12,45 +12,59 @@ function dataMaker(i, j) {
         {
             term1: i,
             term2: j,
-            viewed: false,
-            correct: false,
+            correct: null, //serves two functions when null. if unseen it will be null, once seen it will either change to true or false
         }
     )
 }
 
 function problemGenerator () {
     let arrayElementChooser = Math.floor((Math.random() * 143) + 1); //creates a random number 1-12 inclusive
-    console.log(arrayElementChooser);
-    if(numArray[arrayElementChooser].viewed == false){
+    if(numArray[arrayElementChooser].correct == null){
         let givenProblem = prompt(`${numArray[arrayElementChooser].term1} * ${numArray[arrayElementChooser].term2}`);
+        console.log(`Array element: ${arrayElementChooser} term 1: ${numArray[arrayElementChooser].term1} term2: ${numArray[arrayElementChooser].term2}`);
         if(givenProblem == numArray[arrayElementChooser].term1 * numArray[arrayElementChooser].term2) {
             numArray[arrayElementChooser].correct = true;
             console.log('right!');
         } else {
             console.log('wrong!')
+        numArray[arrayElementChooser].correct = false;
         }
-
-    }
-    
-    numArray[arrayElementChooser].viewed = true;
-}
-
-
-function completeTest() {
-    let isComplete = false;
-    let counter = 0;
-
-    while(!isComplete) {
-         isComplete = numArray[counter].viewed;
-         counter++;
-    }
-    if(counter > 143){
-        return true;
-    } else {
-        return false;
     }
 }
 
+function isComplete() {
+    // let done = true;
+     let ctr = 0;
+    for(i=0; i <numArray.length; i++) {
+        // done = numArray[i].correct; //if it has not been viewed, done will become false and will jump out
+        if(numArray[i].correct !== null) {
+            ctr++;
+        }
+    }
+    console.log('problems seen: ' + ctr + ' problems left: ' + (144 - ctr))
+    return ctr;
+}
+
+function problemsLeft() {
+    let numProblemsLeft = 0;
+    for(i=0;i<numArray.length; i++) {
+        if(numArray[i].correct !== null) {
+            numProblemsLeft++;
+        }
+    }
+    console.log(numProblemsLeft);
+}
+
+function gotRight() {
+    let numRight = 0;
+    for(i=0; i < numArray.length; i++) {
+        if(numArray[i].correct) {
+            numRight++;
+        }
+    }
+
+    return Math.round((numRight / 144) * 100 * 100) /100; //Rounds to the tenth place; can use .toFixed(1) but that converts it to a string
+}
 //Creates array of dataMaker objects
 for(i=1; i <= 12; i++) {
     for(j=1; j <= 12; j++) {
@@ -59,6 +73,16 @@ for(i=1; i <= 12; i++) {
 }
 console.log('Array has been created');
 
+
+while(isComplete() < numArray.length -1){
+    console.log('Problem Generated');
+    problemGenerator();
+}
+
+console.log('all done!')
+
+
+console.log('Results: ' + gotRight() + '%');
 
 
 
