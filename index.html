@@ -21,7 +21,7 @@ function problemGenerator () {
     let arrayElementChooser = Math.floor((Math.random() * 143) + 1); //creates a random number 1-12 inclusive
     if(numArray[arrayElementChooser].correct == null){
         let givenProblem = prompt(`${numArray[arrayElementChooser].term1} * ${numArray[arrayElementChooser].term2}`);
-        console.log(`Array element: ${arrayElementChooser} term 1: ${numArray[arrayElementChooser].term1} term2: ${numArray[arrayElementChooser].term2}`);
+//        console.log(`Array element: ${arrayElementChooser} term 1: ${numArray[arrayElementChooser].term1} term2: ${numArray[arrayElementChooser].term2}`);
         if(givenProblem == numArray[arrayElementChooser].term1 * numArray[arrayElementChooser].term2) {
             numArray[arrayElementChooser].correct = true;
             console.log('right!');
@@ -71,11 +71,10 @@ for(i=1; i <= 12; i++) {
         numArray.push(dataMaker(i, j));
     }
 }
-console.log('Array has been created');
-
+//console.log('Array has been created');
 
 while(isComplete() < numArray.length -1){
-    console.log('Problem Generated');
+//    console.log('Problem Generated');
     problemGenerator();
 }
 
@@ -83,6 +82,7 @@ console.log('all done!')
 
 
 console.log('Results: ' + gotRight() + '%');
+alert('You got ' + gotRight() + '%');
 
 
 
