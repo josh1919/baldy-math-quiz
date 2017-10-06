@@ -1,0 +1,66 @@
+<html>
+    <head></head>
+    <body>
+
+    </body>
+    <script>
+
+const numArray = [];
+
+function dataMaker(i, j) {
+    return (
+        {
+            term1: i,
+            term2: j,
+            viewed: false,
+            correct: false,
+        }
+    )
+}
+
+function problemGenerator () {
+    let arrayElementChooser = Math.floor((Math.random() * 143) + 1); //creates a random number 1-12 inclusive
+    console.log(arrayElementChooser);
+    if(numArray[arrayElementChooser].viewed == false){
+        let givenProblem = prompt(`${numArray[arrayElementChooser].term1} * ${numArray[arrayElementChooser].term2}`);
+        if(givenProblem == numArray[arrayElementChooser].term1 * numArray[arrayElementChooser].term2) {
+            numArray[arrayElementChooser].correct = true;
+            console.log('right!');
+        } else {
+            console.log('wrong!')
+        }
+
+    }
+    
+    numArray[arrayElementChooser].viewed = true;
+}
+
+
+function completeTest() {
+    let isComplete = false;
+    let counter = 0;
+
+    while(!isComplete) {
+         isComplete = numArray[counter].viewed;
+         counter++;
+    }
+    if(counter > 143){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//Creates array of dataMaker objects
+for(i=1; i <= 12; i++) {
+    for(j=1; j <= 12; j++) {
+        numArray.push(dataMaker(i, j));
+    }
+}
+console.log('Array has been created');
+
+
+
+
+    </script>
+</html>
